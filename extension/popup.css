@@ -9,59 +9,117 @@
 :root {
   --text-white-100: #ffffff;
   --bg-dark-gray-100: #202125;
+  --bg-dark-gray-200: #16171b;
+  --bg-dark-gray-300: #0a0a0a;
 }
 
 body {
   font-family: "Poppins", sans-serif;
   color: var(--text-white-100);
-  background: var(--bg-dark-gray-100);
+  background: var(--bg-dark-gray-200);
 }
 
+h2 {
+  font-size: 16px;
+  font-weight: 600;
+  user-select: none;
+  text-align: center;
+}
+
+#ets-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+#ets-container button {
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: none;
+  background-image: url("./asset/img/cat.png");
+  background-position: center;
+  background-size: cover;
+  transition: 0.5s;
+}
+
+#ets-container button:hover {
+  transition: 0.5s;
+  transform: scale(1.05);
+}
+
+#ets-container button[aria-pressed="false"] {
+  filter: grayscale(1);
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+}
+
+header a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-decoration: none;
+  color: inherit;
+  font-size: 16px;
+}
+
+header,
 .container {
-  padding: 16px;
-  min-width: 250px;
+  padding-inline: 8px;
+  width: 250px;
   margin-inline: auto;
 }
 
 .menu {
   padding: 4px;
-  margin-top: 12px;
-  margin-bottom: 12px;
 }
 
-label {
+#toggle {
   display: flex;
   justify-content: space-between;
   align-items: center;
   user-select: none;
+  padding: 8px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+  background-color: var(--bg-dark-gray-100);
 }
 
-label > span {
+#toggle > span {
   font-size: 16px;
 }
 
-.toggle-container {
+#toggle .toggle-container {
   display: flex;
   align-items: center;
   position: relative;
 }
 
-input {
+#toggle input {
   width: 0;
   height: 0;
   opacity: 0;
 }
 
-input:checked + .toggle-switch {
+#toggle input:checked + .toggle-switch {
   background-color: #4d7191;
 }
 
-input:checked + .toggle-switch:before {
+#toggle input:checked + .toggle-switch:before {
   right: 0;
   background-color: #33a5ff;
 }
 
-.toggle-switch {
+#toggle .toggle-switch {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -72,7 +130,7 @@ input:checked + .toggle-switch:before {
   transition: 0.4s;
 }
 
-.toggle-switch:before {
+#toggle .toggle-switch:before {
   content: "";
   position: absolute;
   width: 18px;
@@ -80,6 +138,10 @@ input:checked + .toggle-switch:before {
   border-radius: 100vh;
   background-color: #e0e0e0;
   transition: 0.4s;
+}
+
+#toggle .label-text {
+  font-size: 12px;
 }
 
 /* TOOL TIP */
@@ -93,7 +155,7 @@ input:checked + .toggle-switch:before {
   border: 5px solid transparent;
   border-top-color: #e0e0e0;
   z-index: 1;
-  top:-4px;
+  top: -4px;
   left: 55%;
   /* display: none; */
   opacity: 0;
@@ -112,7 +174,7 @@ input:checked + .toggle-switch:before {
 
   position: absolute;
   top: -30px;
-  left:0;
+  left: 0;
   pointer-events: none;
   z-index: 1;
 

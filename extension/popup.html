@@ -6,9 +6,19 @@
     <script src="popup.js" defer></script>
   </head>
   <body>
+    <header>
+      <a href="https://github.com/sapondanaisriwan/youtube-anti-shorts" target="_blank">
+        <img src="./asset/svg/github.svg" alt="github">
+        <h2>Anti Shorts v1.0.0</h2>
+      </a>
+    </header>
     <div class="container">
       <div class="menu">
-        <label>
+        <div id="ets-container">
+          <button type="button" data-extension>
+        </div>
+        </button>
+        <label id="toggle">
           <span class="label-text" tooltip="Hide shorts videos"
             >Hide Videos</span
           >
@@ -17,15 +27,17 @@
             <span class="toggle-switch"></span>
           </div>
         </label>
-        <label>
+        <label id="toggle">
           <span class="label-text" tooltip="Hide shorts tab">Hide Tabs</span>
           <div class="toggle-container">
             <input type="checkbox" id="hide-tab" />
             <span class="toggle-switch"></span>
           </div>
         </label>
-        <label>
-          <span class="label-text" tooltip="Hide shorts shelfs">Hide Shelf</span>
+        <label id="toggle">
+          <span class="label-text" tooltip="Hide shorts shelfs"
+            >Hide Shelf</span
+          >
           <div class="toggle-container">
             <input type="checkbox" id="hide-shelf" />
             <span class="toggle-switch"></span>
@@ -33,10 +45,4 @@
         </label>
       </div>
     </div>
-
-    <!-- <br>
-  <label for="customValue">Custom Value:</label>
-  <input type="range" id="customValue" min="0" max="100" step="1">
-  <input type="number" id="customValueInput" min="0" max="100"> -->
-  </body>
 </html>

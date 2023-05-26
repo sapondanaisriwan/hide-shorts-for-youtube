@@ -100,6 +100,7 @@ const hideElement = (element, msg) => {
 };
 
 const hideShorts = () => {
+  if (!data.isEnable) return console.log("extension is turn off");
   const navbarExpanded = select(selectors.navbar?.expanded);
   const navbarCollapse = select(selectors.navbar?.collapse);
   const reelShelfs = selectAll(selectors.reelShelf);
