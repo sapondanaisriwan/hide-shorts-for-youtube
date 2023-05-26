@@ -6,6 +6,14 @@ const [runtime, storage] = [browser.runtime, browser.storage.sync];
 const config = { childList: true, subtree: true };
 const isSupportHas = CSS.supports("selector(:has(*))");
 
+const settingKeys = [
+  "isEnable",
+  "toggleHideVideos",
+  "toggleHideShelf",
+  "toggleHideTabs",
+];
+let data;
+
 const cLogStyles = "color: red; font-size: 16px";
 
 const messages = {
@@ -65,12 +73,6 @@ function waitForElement(selector) {
   });
 }
 
-// chrome.storage.sync.get(console.log);
-
-// storage.onChanged.addListener((changes, namespace) => {
-//   console.log(changes);
-// });
-
 const cLog = (msg) => console.log(`%c${msg}`, cLogStyles);
 
 const select = (selector) => document.querySelector(selector);
@@ -106,18 +108,28 @@ const hideShorts = () => {
   const tabs = selectAll(selectors.tabs?.tab);
   const bars = selectAll(selectors.filterBar?.bar);
 
-  hideElement(navbarExpanded, messages.navbar);
-  hideElement(navbarCollapse, messages.navbar);
+  if (data.toggleHideTabs) {
+    hideElement(navbarExpanded, messages.navbar);
+    hideElement(navbarCollapse, messages.navbar);
+    loopCheckText(tabs, messages.tab, selectors.tabs?.parent);
+    loopCheckText(bars, messages.filterBar, selectors.filterBar?.parent);
+  }
 
-  loopEle(reelShelfs, messages.reel);
-  loopCheckText(tabs, messages.tab, selectors.tabs?.parent);
-  loopCheckText(bars, messages.filterBar, selectors.filterBar?.parent);
+  if (data.toggleHideShelf) {
+    loopEle(reelShelfs, messages.reel);
+    loopFindParent(richShelfs, messages.rich, selectors.richShelf?.parent);
+  }
 
-  loopFindParent(richShelfs, messages.rich, selectors.richShelf?.parent);
-  loopFindParent(videos, messages.video, selectors.videos?.parent);
+  data.toggleHideVideos &&
+    loopFindParent(videos, messages.video, selectors.videos?.parent);
 };
 
+storage.onChanged.addListener(async () => {
+  data = await storage.get(settingKeys);
+});
+
 const main = async () => {
+  data = await storage.get(settingKeys);
   const ytd = await waitForElement(selectors.ytd);
   const observer = new MutationObserver(hideShorts);
   observer.observe(ytd, config);
