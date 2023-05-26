@@ -1,7 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Anti Tab",
-  "version": "1.0",
+  "name": "Youtube Anti Shorts",
+  "description": "Hide All YouTube Shorts",
+  "version": "1.0.0",
   "permissions": ["tabs", "storage", "management"],
   "action": {
     "default_popup": "popup.html"
