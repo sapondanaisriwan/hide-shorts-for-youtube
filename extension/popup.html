@@ -6,18 +6,34 @@
     <script src="popup.js" defer></script>
   </head>
   <body>
-    <label>
-      <span>Hide Shorts</span>
-      <input type="checkbox" id="hide-videos" />
-    </label>
-    <label>
-      <span>Hide Tab</span>
-      <input type="checkbox" id="hide-tab" />
-    </label>
-    <label>
-      <span>Hide Shelf</span>
-      <input type="checkbox" id="hide-shelf" />
-    </label>
+    <div class="container">
+      <div class="menu">
+        <label>
+          <span class="label-text" tooltip="Hide shorts videos"
+            >Hide Videos</span
+          >
+          <div class="toggle-container">
+            <input type="checkbox" id="hide-videos" />
+            <span class="toggle-switch"></span>
+          </div>
+        </label>
+        <label>
+          <span class="label-text" tooltip="Hide shorts tab">Hide Tabs</span>
+          <div class="toggle-container">
+            <input type="checkbox" id="hide-tab" />
+            <span class="toggle-switch"></span>
+          </div>
+        </label>
+        <label>
+          <span class="label-text" tooltip="Hide shorts shelfs">Hide Shelf</span>
+          <div class="toggle-container">
+            <input type="checkbox" id="hide-shelf" />
+            <span class="toggle-switch"></span>
+          </div>
+        </label>
+      </div>
+    </div>
+
     <!-- <br>
   <label for="customValue">Custom Value:</label>
   <input type="range" id="customValue" min="0" max="100" step="1">
