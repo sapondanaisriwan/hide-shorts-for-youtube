@@ -8,7 +8,7 @@ Hide all shorts videos on YouTube
 [![Forks][fork-badge]][members]
 [![MIT License][mit-badge]](./LICENSE)
 
-<img src="https://github.com/sapondanaisriwan/youtube-anti-shorts/assets/64634605/fc7cd163-36d3-4d93-973c-2f2bd1111cdd" width="100%"/>
+<img src="https://github.com/sapondanaisriwan/youtube-anti-shorts/assets/64634605/b637d676-c772-4da5-9fd4-6c51973c4f61" width="100%"/>
 
 </div>
 
@@ -26,14 +26,6 @@ Hide all shorts videos on YouTube
 
 [b1]: https://i.imgur.com/v9yTLJw.png
 [a1]: https://i.imgur.com/VACSUoa.png
-
-<div align="center">
-
-### ⚙️ Menu Setting
-
-<img src="https://github.com/sapondanaisriwan/youtube-anti-shorts/assets/64634605/2543086e-7bc1-4dcd-b86f-1e1b7926ecc0"/>
-
-</div>
 
 ## 🧑‍💻 Contributing
 
