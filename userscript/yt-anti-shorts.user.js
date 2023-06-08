@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        YouTube Anti-Shorts
-// @version     1.0.1
+// @version     1.0.2
 // @author      sapondanaisriwan
 // @namespace   https://github.com/sapondanaisriwan/youtube-anti-shorts
 // @description Remove all shorts
@@ -25,32 +25,18 @@ Support me: https://ko-fi.com/sapondanaisriwan
 
 "use strict";
 
-const cLogStyles = "color: red; font-size: 16px";
-const config = { childList: true, subtree: true };
-
-const messages = {
-  reel: "Hide: Reel Shelf",
-  rich: "Hide: Rich Section",
-  navbar: "Hide: Navbar Short",
-  tab: "Hide: Tab Short",
-  video: "Hide: Video Short",
-  filterBar: "Hide: Filter Bar",
+// Customize the way you like :)
+const settings = {
+  Hide_Shorts_Videos: true,
+  Hide_Reel_Shorts: true,
+  Hide_Shorts_Tab: true,
 };
 
+const config = { childList: true, subtree: true, attributes: true };
 const selectors = {
-  ytd: "#content.ytd-app",
-  videos: {
-    video: 'a[href^="/shorts/"]',
-    parent: "ytd-video-renderer, ytd-grid-video-renderer, ytd-rich-grid-row",
-  },
   tabs: {
-    tab: "tp-yt-paper-tab .tab-title",
     parent: "tp-yt-paper-tab",
-  },
-  reelShelf: "ytd-reel-shelf-renderer",
-  richShelf: {
-    parent: ".ytd-rich-grid-renderer",
-    shelf: "ytd-rich-shelf-renderer[is-shorts]",
+    element: "tp-yt-paper-tab .tab-title",
   },
   navbar: {
     collapse: 'a.ytd-mini-guide-entry-renderer[title="Shorts"]',
@@ -60,81 +46,142 @@ const selectors = {
     `,
   },
   filterBar: {
-    parent: "yt-chip-cloud-chip-renderer.ytd-feed-filter-chip-bar-renderer",
-    bar: "#text.yt-chip-cloud-chip-renderer",
+    parent: "yt-chip-cloud-chip-renderer",
+    element: "yt-chip-cloud-chip-renderer #text[title='Shorts']",
+  },
+  searchPage: {
+    reel: "ytd-search ytd-reel-shelf-renderer",
+    videos: {
+      parent: "ytd-video-renderer[is-search]",
+      element: "ytd-search #thumbnail[href^='/shorts/']",
+    },
+  },
+  homePage: {
+    reel: {
+      parent: "ytd-rich-section-renderer",
+      element: "[page-subtype='home'] ytd-rich-shelf-renderer[is-shorts]",
+    },
+  },
+  subscriptionPage: {
+    reel: {
+      parent: "ytd-rich-section-renderer",
+      element:
+        "[page-subtype='subscriptions'] ytd-rich-shelf-renderer[is-shorts]",
+    },
+    videos: {
+      parent: "ytd-grid-video-renderer, ytd-rich-item-renderer",
+      element: "[page-subtype='subscriptions'] #thumbnail[href^='/shorts/']",
+    },
+  },
+  channelPage: {
+    reel: {
+      parent: "ytd-item-section-renderer",
+      element: '[page-subtype="channels"] ytd-reel-shelf-renderer',
+    },
+    feed: {
+      element:
+        "[page-subtype='channels'] ytd-rich-grid-renderer[is-shorts-grid]",
+    },
+  },
+  watchPage: {
+    reel: "ytd-watch-flexy ytd-reel-shelf-renderer",
+  },
+  hashtagePage: {
+    video: {
+      parent: "ytd-rich-item-renderer",
+      element:
+        "[page-subtype='hashtag-landing-page'] #thumbnail[href^='/shorts/']",
+    },
   },
 };
 
-const cLog = (msg) => console.log(`%c${msg}`, cLogStyles);
+const tab = selectors.tabs;
+const tabNav = selectors.navbar;
+const filterBar = selectors.filterBar;
 
-const select = (selector) => document.querySelector(selector);
-const selectAll = (selector) => document.querySelectorAll(selector);
+const sp = selectors.searchPage;
+const hp = selectors.homePage;
+const subp = selectors.subscriptionPage;
+const wp = selectors.watchPage;
+const chp = selectors.channelPage;
+const hashP = selectors.hashtagePage;
 
-const loopEle = (elements, msg) =>
-  elements.forEach((element) => hideElement(element, msg));
-const loopFindParent = (elements, msg, selector) =>
-  elements.forEach((element) => hideElement(element.closest(selector), msg));
-
-const loopCheckText = (elements, msg, selector) => {
-  elements.forEach((element) => {
-    if (element.textContent === "Shorts") {
-      hideElement(element.closest(selector), msg);
-    }
-  });
-};
-
-const hideElement = (element, msg) => {
-  if (!element || element.hidden) {
-    return;
-  }
-  element.hidden = true;
-  cLog(msg);
-};
-
-function waitForElement(selector) {
-  return new Promise((resolve) => {
-    const element = select(selector);
-    if (element) {
-      resolve(element);
-      return;
-    }
-
-    const observer = new MutationObserver(() => {
-      const element = select(selector);
-      if (element) {
-        resolve(element);
-        observer.disconnect();
-      }
-    });
-
-    observer.observe(document.body, config);
-  });
+function checkDisplay(ele) {
+  return ele.style.display === "none";
 }
 
-const hideShorts = () => {
-  const navbarExpanded = select(selectors.navbar?.expanded);
-  const navbarCollapse = select(selectors.navbar?.collapse);
-  const reelShelfs = selectAll(selectors.reelShelf);
-  const richShelfs = selectAll(selectors.richShelf?.shelf);
-  const videos = selectAll(selectors.videos?.video);
-  const tabs = selectAll(selectors.tabs?.tab);
-  const bars = selectAll(selectors.filterBar?.bar);
+function setHide(ele) {
+  ele.style.display = "none";
+}
 
-  hideElement(navbarExpanded, messages.navbar);
-  hideElement(navbarCollapse, messages.navbar);
+function hideEle(ele) {
+  const isEleHide = checkDisplay(ele);
+  !isEleHide && setHide(ele);
+}
 
-  loopEle(reelShelfs, messages.reel);
-  loopCheckText(tabs, messages.tab, selectors.tabs?.parent);
-  loopCheckText(bars, messages.filterBar, selectors.filterBar?.parent);
+function hideParentEle(ele, parent) {
+  const parentEle = ele.closest(parent);
+  if (parentEle) {
+    const isParentHide = checkDisplay(parentEle);
+    !isParentHide && setHide(parentEle);
+  }
+}
 
-  loopFindParent(richShelfs, messages.rich, selectors.richShelf?.parent);
-  loopFindParent(videos, messages.video, selectors.videos?.parent);
-};
+function hideShorts(selector, parent = "") {
+  [...document.querySelectorAll(selector)].forEach((ele) =>
+    parent ? hideParentEle(ele, parent) : hideEle(ele)
+  );
+}
 
-const run = async () => {
-  const ytd = await waitForElement(selectors.ytd);
-  const observer = new MutationObserver(hideShorts);
-  observer.observe(ytd, config);
-};
+function hideShortsText(selector, parent = "") {
+  [...document.querySelectorAll(selector)].forEach(
+    (ele) =>
+      ele.textContent.toLowerCase() === "shorts" && hideParentEle(ele, parent)
+  );
+}
 
-run();
+function run() {
+  if (settings.Hide_Shorts_Tab) {
+    // Tabs
+    hideShortsText(tab.element, tab.parent);
+    hideShorts(tabNav.expanded);
+    hideShorts(tabNav.collapse);
+
+    // Hashtag Page
+    hideShorts(filterBar.element, filterBar.parent);
+  }
+
+  if (settings.Hide_Shorts_Videos) {
+    // Hashtag Page
+    hideShorts(hashP.video.element, hashP.video.parent);
+
+    // Search Page
+    hideShorts(sp.videos.element, sp.videos.parent);
+
+    // Subscription Page
+    hideShorts(subp.videos.element, subp.videos.parent);
+
+    // Channel Page
+    hideShorts(chp.feed.element);
+  }
+
+  if (settings.Hide_Reel_Shorts) {
+    // Home Page
+    hideShorts(hp.reel.element, hp.reel.parent);
+
+    // Subscription Page
+    hideShorts(subp.reel.element, hp.reel.parent);
+
+    // Channel Page
+    hideShorts(chp.reel.element, chp.reel.parent);
+
+    // Watch Page
+    hideShorts(wp.reel);
+
+    // Search Page
+    hideShorts(sp.reel);
+  }
+}
+
+const observer = new MutationObserver(run);
+observer.observe(document.documentElement, config);
