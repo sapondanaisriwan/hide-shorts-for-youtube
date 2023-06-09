@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        YouTube Anti-Shorts
-// @version     1.0.2
+// @version     1.0.3
 // @author      sapondanaisriwan
 // @namespace   https://github.com/sapondanaisriwan/youtube-anti-shorts
 // @description Remove all shorts
@@ -30,6 +30,10 @@ const settings = {
   Hide_Shorts_Videos: true,
   Hide_Reel_Shorts: true,
   Hide_Shorts_Tab: true,
+  Subscription_Page: {
+    Videos_Per_Row: 6,
+    Hide_Channel_Profile: true,
+  },
 };
 
 const config = { childList: true, subtree: true, attributes: true };
@@ -95,6 +99,66 @@ const selectors = {
   },
 };
 
+// Stolen from AdashimaaTube
+const styles = {
+  subscriptionPage: {
+    layoutFix: `
+    [page-subtype="subscriptions"] ytd-rich-grid-renderer #contents ytd-rich-grid-row,
+    [page-subtype="subscriptions"] ytd-rich-grid-renderer #contents ytd-rich-grid-row #contents {
+      display: contents;
+    }
+  
+    [page-subtype="subscriptions"] ytd-rich-item-renderer:not([is-reel-item-style-avatar-circle]) {
+      width: calc(100%/${settings.Subscription_Page.Videos_Per_Row} - 4px - 0.01px)
+    }
+  
+    [page-subtype="subscriptions"] ytd-rich-grid-renderer #contents #contents > ytd-rich-item-renderer:not([is-reel-item-style-avatar-circle]) {
+      margin-left: 0;
+      margin-right: calc(var(--ytd-rich-grid-item-margin) / 4);
+      margin-bottom: 24px;
+    }
+  
+    [page-subtype="subscriptions"] #contents.ytd-rich-grid-renderer {
+      padding-top: 0;
+    }
+    [page-subtype="subscriptions"] #content.ytd-rich-section-renderer {
+      margin: 0;
+      max-width: 100%;
+    }
+  
+    [page-subtype="subscriptions"][mini-guide-visible] ytd-two-column-browse-results-renderer.grid.grid-disabled {
+      max-width: var(--ytd-grid-max-width);
+    }
+    @media screen and (max-width: 1170px) {
+      [page-subtype="subscriptions"][mini-guide-visible] ytd-two-column-browse-results-renderer.grid.grid-disabled {
+        width: var(--ytd-grid-4-columns-width);
+      }
+    }
+    @media screen and (min-width: 1171px) {
+      [page-subtype="subscriptions"][mini-guide-visible] ytd-two-column-browse-results-renderer.grid.grid-disabled,
+      [page-subtype="subscriptions"]:not([mini-guide-visible]) ytd-two-column-browse-results-renderer.grid.grid-disabled {
+        width: var(--ytd-grid-5-columns-width);
+      }
+    }
+    @media screen and (min-width: 1440px) {
+      [page-subtype="subscriptions"][mini-guide-visible] ytd-two-column-browse-results-renderer.grid.grid-disabled {
+        width: var(--ytd-grid-6-columns-width);
+      }
+    }
+    @media screen and (min-width: 1553px) {
+      [page-subtype="subscriptions"]:not([mini-guide-visible]) ytd-two-column-browse-results-renderer.grid.grid-disabled {
+        width: var(--ytd-grid-6-columns-width);
+      }
+    }  
+    `,
+    hideChannelProfile: `
+    [page-subtype="subscriptions"] #avatar-link.ytd-rich-grid-media {
+      display: none;
+    }
+    `,
+  },
+};
+
 const tab = selectors.tabs;
 const tabNav = selectors.navbar;
 const filterBar = selectors.filterBar;
@@ -140,6 +204,24 @@ function hideShortsText(selector, parent = "") {
   );
 }
 
+// Function to remove DOM element
+const removeEle = (id) => {
+  const ele = document.getElementById(id);
+  ele && ele.remove();
+};
+
+// Function to inject a style into the webpage
+const injectStyle = (id, css) => {
+  // Remove before adding
+  removeEle(id);
+
+  const style = document.createElement("style");
+  style.type = "text/css";
+  style.id = id;
+  style.textContent = css;
+  document.documentElement.appendChild(style);
+};
+
 function run() {
   if (settings.Hide_Shorts_Tab) {
     // Tabs
@@ -183,5 +265,11 @@ function run() {
   }
 }
 
+injectStyle("Stolen-from-AdashimaaTube", styles.subscriptionPage.layoutFix);
+settings.Subscription_Page.Hide_Channel_Profile &&
+  injectStyle(
+    "hide-channel-profile",
+    styles.subscriptionPage.hideChannelProfile
+  );
 const observer = new MutationObserver(run);
 observer.observe(document.documentElement, config);
