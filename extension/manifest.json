@@ -3,7 +3,7 @@
   "name": "Youtube Anti Shorts",
   "description": "Hide All YouTube Shorts",
   "version": "1.0.0",
-  "permissions": ["tabs", "storage", "management"],
+  "permissions": ["tabs", "storage"],
   "action": {
     "default_popup": "popup.html"
   },
@@ -16,7 +16,7 @@
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/*"],
-      "js": ["content-script.js"]
+      "js": ["./variables.js", "./init-data.js", "./hide-shorts.js"]
     }
   ],
   "background": {

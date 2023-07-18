@@ -1,29 +1,17 @@
 const youtubeURL = "https://www.youtube.com/*";
 const browser = chrome || browser;
-const [runtime, storage] = [browser.runtime, browser.storage.sync];
-
-const extensionSettings = {
-  isEnable: true,
-  toggleHideVideos: true,
-  toggleHideShelf: true,
-  toggleHideTabs: true,
-};
+const runtime = browser.runtime;
+const storage = browser.storage.sync;
 
 // https://developer.chrome.com/docs/extensions/reference/runtime/#event-onInstalled
 runtime.onInstalled.addListener(({ reason }) => {
   if (reason === "install" || reason === "update") {
-    storage.set(extensionSettings);
+    // storage.clear();
+    // storage.set(oldSettings);
     reloadTabs();
     fetchAllStorage();
   }
 });
-
-// https://developer.chrome.com/docs/extensions/reference/runtime/#event-onMessage
-// runtime.onMessage.addListener(async (message) => {
-//   console.log(message);
-//   const tabs = await getTabs();
-//   tabs.forEach((tab) => browser.tabs.sendMessage(tab.id, message));
-// });
 
 const fetchAllStorage = () => storage.get();
 const fetchTabs = () => browser.tabs.query({ url: youtubeURL });
