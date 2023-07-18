@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        YouTube Anti-Shorts
-// @version     1.0.3
+// @version     1.0.4
 // @author      sapondanaisriwan
 // @namespace   https://github.com/sapondanaisriwan/youtube-anti-shorts
 // @description Remove all shorts
@@ -16,7 +16,7 @@
 /*
 If you want to submit a bug or request a feature please report via github issue. Since I receive so many emails, I can't reply to them all.
 Contact: sapondanaisriwan@gmail.com
-Support me: https://ko-fi.com/sapondanaisriwan 
+Support me: https://ko-fi.com/sapondanaisriwan
 Support me: https://ko-fi.com/sapondanaisriwan
 Support me: https://ko-fi.com/sapondanaisriwan
 Support me: https://ko-fi.com/sapondanaisriwan
@@ -27,11 +27,15 @@ Support me: https://ko-fi.com/sapondanaisriwan
 
 // Customize the way you like :)
 const settings = {
-  Hide_Shorts_Videos: true,
-  Hide_Reel_Shorts: true,
-  Hide_Shorts_Tab: true,
+  Hide_Tab: true, // Hide Tabs that named "SHORT"
+  Home_Page: true,
+  Channel_Page: true,
+  Watch_Page: true,
+  Search_Page: true,
+  Hashtag_Page: true,
   Subscription_Page: {
     Videos_Per_Row: 6,
+    Hide_Shorts: true,
     Hide_Channel_Profile: true,
   },
 };
@@ -107,17 +111,17 @@ const styles = {
     [page-subtype="subscriptions"] ytd-rich-grid-renderer #contents ytd-rich-grid-row #contents {
       display: contents;
     }
-  
+
     [page-subtype="subscriptions"] ytd-rich-item-renderer:not([is-reel-item-style-avatar-circle]) {
       width: calc(100%/${settings.Subscription_Page.Videos_Per_Row} - 4px - 0.01px)
     }
-  
+
     [page-subtype="subscriptions"] ytd-rich-grid-renderer #contents #contents > ytd-rich-item-renderer:not([is-reel-item-style-avatar-circle]) {
       margin-left: 0;
       margin-right: calc(var(--ytd-rich-grid-item-margin) / 4);
       margin-bottom: 24px;
     }
-  
+
     [page-subtype="subscriptions"] #contents.ytd-rich-grid-renderer {
       padding-top: 0;
     }
@@ -125,7 +129,7 @@ const styles = {
       margin: 0;
       max-width: 100%;
     }
-  
+
     [page-subtype="subscriptions"][mini-guide-visible] ytd-two-column-browse-results-renderer.grid.grid-disabled {
       max-width: var(--ytd-grid-max-width);
     }
@@ -149,7 +153,7 @@ const styles = {
       [page-subtype="subscriptions"]:not([mini-guide-visible]) ytd-two-column-browse-results-renderer.grid.grid-disabled {
         width: var(--ytd-grid-6-columns-width);
       }
-    }  
+    }
     `,
     hideChannelProfile: `
     [page-subtype="subscriptions"] #avatar-link.ytd-rich-grid-media {
@@ -223,7 +227,40 @@ const injectStyle = (id, css) => {
 };
 
 function run() {
-  if (settings.Hide_Shorts_Tab) {
+  // Home Page
+  if (settings.Home_Page) {
+    hideShorts(hp.reel.element, hp.reel.parent);
+  }
+
+  // Channel Page
+  if (settings.Channel_Page) {
+    hideShorts(chp.feed.element);
+    hideShorts(chp.reel.element, chp.reel.parent);
+  }
+
+  // Watch Page
+  if (settings.Watch_Page) {
+    hideShorts(wp.reel);
+  }
+
+  // Search Page
+  if (settings.Search_Page) {
+    hideShorts(sp.reel);
+    hideShorts(sp.videos.element, sp.videos.parent);
+  }
+
+  // Subscription Page
+  if (settings.Subscription_Page.Hide_Shorts) {
+    hideShorts(subp.videos.element, subp.videos.parent);
+    hideShorts(subp.reel.element, hp.reel.parent);
+  }
+
+  // Hashtag Page
+  if (settings.Hashtag_Page) {
+    hideShorts(hashP.video.element, hashP.video.parent);
+  }
+
+  if (settings.Hide_Tab) {
     // Tabs
     hideShortsText(tab.element, tab.parent);
     hideShorts(tabNav.expanded);
@@ -231,37 +268,6 @@ function run() {
 
     // Hashtag Page
     hideShorts(filterBar.element, filterBar.parent);
-  }
-
-  if (settings.Hide_Shorts_Videos) {
-    // Hashtag Page
-    hideShorts(hashP.video.element, hashP.video.parent);
-
-    // Search Page
-    hideShorts(sp.videos.element, sp.videos.parent);
-
-    // Subscription Page
-    hideShorts(subp.videos.element, subp.videos.parent);
-
-    // Channel Page
-    hideShorts(chp.feed.element);
-  }
-
-  if (settings.Hide_Reel_Shorts) {
-    // Home Page
-    hideShorts(hp.reel.element, hp.reel.parent);
-
-    // Subscription Page
-    hideShorts(subp.reel.element, hp.reel.parent);
-
-    // Channel Page
-    hideShorts(chp.reel.element, chp.reel.parent);
-
-    // Watch Page
-    hideShorts(wp.reel);
-
-    // Search Page
-    hideShorts(sp.reel);
   }
 }
 
