@@ -74,7 +74,7 @@ const selectors = {
     reel: {
       parent: "ytd-rich-section-renderer",
       element:
-        "[page-subtype='subscriptions'] ytd-rich-shelf-renderer[is-shorts], ytd-reel-shelf-renderer",
+        "[page-subtype='subscriptions'] ytd-rich-shelf-renderer[is-shorts]",
     },
     reelList: {
       parent: "ytd-item-section-renderer[page-subtype='subscriptions']",
