@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        YouTube Anti-Shorts
-// @version     1.0.4
+// @version     1.0.5
 // @author      sapondanaisriwan
 // @namespace   https://github.com/sapondanaisriwan/youtube-anti-shorts
 // @description Remove all shorts
@@ -74,10 +74,15 @@ const selectors = {
     reel: {
       parent: "ytd-rich-section-renderer",
       element:
-        "[page-subtype='subscriptions'] ytd-rich-shelf-renderer[is-shorts]",
+        "[page-subtype='subscriptions'] ytd-rich-shelf-renderer[is-shorts], ytd-reel-shelf-renderer",
+    },
+    reelList: {
+      parent: "ytd-item-section-renderer[page-subtype='subscriptions']",
+      element: "ytd-reel-shelf-renderer",
     },
     videos: {
-      parent: "ytd-grid-video-renderer, ytd-rich-item-renderer",
+      parent:
+        "ytd-grid-video-renderer, ytd-rich-item-renderer, ytd-item-section-renderer",
       element: "[page-subtype='subscriptions'] #thumbnail[href^='/shorts/']",
     },
   },
@@ -94,7 +99,7 @@ const selectors = {
   watchPage: {
     reel: "ytd-watch-flexy ytd-reel-shelf-renderer",
   },
-  hashtagePage: {
+  hashtagPage: {
     video: {
       parent: "ytd-rich-item-renderer",
       element:
@@ -163,17 +168,6 @@ const styles = {
   },
 };
 
-const tab = selectors.tabs;
-const tabNav = selectors.navbar;
-const filterBar = selectors.filterBar;
-
-const sp = selectors.searchPage;
-const hp = selectors.homePage;
-const subp = selectors.subscriptionPage;
-const wp = selectors.watchPage;
-const chp = selectors.channelPage;
-const hashP = selectors.hashtagePage;
-
 function checkDisplay(ele) {
   return ele.style.display === "none";
 }
@@ -229,49 +223,69 @@ const injectStyle = (id, css) => {
 function run() {
   // Home Page
   if (settings.Home_Page) {
-    hideShorts(hp.reel.element, hp.reel.parent);
+    hideShorts(selectors.homePage.reel.element, selectors.homePage.reel.parent);
   }
 
   // Channel Page
   if (settings.Channel_Page) {
-    hideShorts(chp.feed.element);
-    hideShorts(chp.reel.element, chp.reel.parent);
+    hideShorts(selectors.channelPage.feed.element);
+    hideShorts(
+      selectors.channelPage.reel.element,
+      selectors.channelPage.reel.parent
+    );
   }
 
   // Watch Page
   if (settings.Watch_Page) {
-    hideShorts(wp.reel);
+    hideShorts(selectors.watchPage.reel);
   }
 
   // Search Page
   if (settings.Search_Page) {
-    hideShorts(sp.reel);
-    hideShorts(sp.videos.element, sp.videos.parent);
+    hideShorts(selectors.searchPage.reel);
+    hideShorts(
+      selectors.searchPage.videos.element,
+      selectors.searchPage.videos.parent
+    );
   }
 
   // Subscription Page
   if (settings.Subscription_Page.Hide_Shorts) {
-    hideShorts(subp.videos.element, subp.videos.parent);
-    hideShorts(subp.reel.element, hp.reel.parent);
+    hideShorts(
+      selectors.subscriptionPage.videos.element,
+      selectors.subscriptionPage.videos.parent
+    );
+    hideShorts(
+      selectors.subscriptionPage.reel.element,
+      selectors.subscriptionPage.reel.parent
+    );
+    hideShorts(
+      selectors.subscriptionPage.reelList.element,
+      selectors.subscriptionPage.reelList.parent
+    );
   }
 
   // Hashtag Page
   if (settings.Hashtag_Page) {
-    hideShorts(hashP.video.element, hashP.video.parent);
+    hideShorts(
+      selectors.hashtagPage.video.element,
+      selectors.hashtagPage.video.parent
+    );
   }
 
   if (settings.Hide_Tab) {
     // Tabs
-    hideShortsText(tab.element, tab.parent);
-    hideShorts(tabNav.expanded);
-    hideShorts(tabNav.collapse);
+    hideShortsText(selectors.tabs.element, selectors.tabs.parent);
+    hideShorts(selectors.navbar.expanded);
+    hideShorts(selectors.navbar.collapse);
 
     // Hashtag Page
-    hideShorts(filterBar.element, filterBar.parent);
+    hideShorts(selectors.filterBar.element, selectors.filterBar.parent);
   }
 }
 
-injectStyle("Stolen-from-AdashimaaTube", styles.subscriptionPage.layoutFix);
+settings.Subscription_Page.Hide_Shorts &&
+  injectStyle("Stolen-from-AdashimaaTube", styles.subscriptionPage.layoutFix);
 settings.Subscription_Page.Hide_Channel_Profile &&
   injectStyle(
     "hide-channel-profile",
