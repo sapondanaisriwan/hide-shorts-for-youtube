@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Youtube Anti Shorts",
   "description": "Hide All YouTube Shorts",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "permissions": ["storage"],
   "action": {
     "default_popup": "popup.html"
