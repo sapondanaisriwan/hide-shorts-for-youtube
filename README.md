@@ -8,7 +8,7 @@ Hide all shorts videos on YouTube
 [![Forks][fork-badge]][members]
 [![MIT License][mit-badge]](./LICENSE)
 
-<img src="https://github.com/sapondanaisriwan/youtube-anti-shorts/assets/64634605/b637d676-c772-4da5-9fd4-6c51973c4f61" width="100%"/>
+<img src="https://github.com/sapondanaisriwan/youtube-anti-shorts/assets/64634605/fa2e3540-b905-42f0-8021-674a9b858ac2" width="100%"/>
 
 </div>
 
