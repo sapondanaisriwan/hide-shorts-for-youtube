@@ -158,7 +158,7 @@ const styles = {
   }
   
   [page-subtype="subscriptions"] #contents {
-    width: 88.1%;
+    width: 97.5%;
   }
   [page-subtype="subscriptions"] ytd-rich-grid-row,
   [page-subtype="subscriptions"] ytd-rich-grid-row #contents {
