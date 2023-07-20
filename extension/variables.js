@@ -91,11 +91,8 @@ const selectors = {
 // Stolen from AdashimaaTube
 const styles = {
   tabs: `
-  #endpoint.yt-simple-endpoint.ytd-guide-entry-renderer[title="Shorts"] {
-    display: none;
-  }
-
-  a.ytd-mini-guide-entry-renderer[title="Shorts"] {
+  a.ytd-mini-guide-entry-renderer[title=Shorts],
+  #endpoint.yt-simple-endpoint.ytd-guide-entry-renderer[title=Shorts] {
     display: none;
   }
   `,
@@ -109,21 +106,23 @@ const styles = {
   ytd-search ytd-video-renderer:has(a[href^="/shorts/"]) {
     display: none;
   }
-  
   `,
   channelPage: `
   [page-subtype="channels"] ytd-item-section-renderer:has(a[href^="/shorts/"]),
   [page-subtype="channels"] ytd-rich-grid-renderer:has(a[href^="/shorts/"]) {
     display: none;
-  }  
+  }
   `,
   watchPage: `
   ytd-watch-flexy ytd-reel-shelf-renderer {
     display: none;
-  }
+  } 
   `,
   hashtagPage: `
   [page-subtype="hashtag-landing-page"] ytd-rich-item-renderer:has(a[href^="/shorts/"]) {
+    display: none;
+  }
+  [page-subtype="hashtag-landing-page"] ytd-rich-grid-renderer[is-shorts-grid] #contents.ytd-rich-grid-renderer {
     display: none;
   }
   [page-subtype="hashtag-landing-page"] #contents {
@@ -133,9 +132,6 @@ const styles = {
   [page-subtype="hashtag-landing-page"] ytd-rich-grid-row #contents {
     display: contents;
   }
-  [page-subtype="hashtag-landing-page"] ytd-rich-grid-renderer[is-shorts-grid] #contents.ytd-rich-grid-renderer {
-    display: none;
-  }  
   `,
   subscriptionPage: `
   [page-subtype="subscriptions"] ytd-item-section-renderer:has(a[href^="/shorts/"]),
@@ -143,6 +139,13 @@ const styles = {
   [page-subtype="subscriptions"] ytd-grid-video-renderer:has(a[href^="/shorts/"]),
   [page-subtype="subscriptions"] ytd-rich-item-renderer:has(a[href^="/shorts/"]) {
     display: none;
+  }
+  [page-subtype="subscriptions"] #contents {
+    width: 88.1%;
+  }
+  [page-subtype="subscriptions"] ytd-rich-grid-row,
+  [page-subtype="subscriptions"] ytd-rich-grid-row #contents {
+    display: contents;
   }
   `,
 };
