@@ -54,8 +54,6 @@ const injectStyle = (id, css) => {
 };
 
 function hideShortsCSS() {
-  storage.get(console.log);
-
   data.shortsSetting?.homePage
     ? injectStyle("hs-home-page", styles.homePage)
     : removeEle("hs-home-page");
@@ -136,12 +134,11 @@ async function main() {
 
   // if the browser doesn't support has pseudo selectors execute the code below and return
   if (!supportHas) {
-    console.log("Not Support :has()");
     const observer = new MutationObserver(hideShortsJS);
     observer.observe(document.documentElement, config);
+    injectStyle("hs-layout-fix", styles.layoutFix);
     return;
   }
-  console.log("Support :has()");
   hideShortsCSS();
 }
 main();

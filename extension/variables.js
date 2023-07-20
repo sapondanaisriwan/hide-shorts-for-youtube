@@ -148,6 +148,23 @@ const styles = {
     display: contents;
   }
   `,
+  layoutFix: `
+  [page-subtype="hashtag-landing-page"] #contents {
+    width: 88.1%;
+  }
+  [page-subtype="hashtag-landing-page"] ytd-rich-grid-row,
+  [page-subtype="hashtag-landing-page"] ytd-rich-grid-row #contents {
+    display: contents;
+  }
+  
+  [page-subtype="subscriptions"] #contents {
+    width: 88.1%;
+  }
+  [page-subtype="subscriptions"] ytd-rich-grid-row,
+  [page-subtype="subscriptions"] ytd-rich-grid-row #contents {
+    display: contents;
+  }
+  `
 };
 
 const tab = selectors.tabs;
