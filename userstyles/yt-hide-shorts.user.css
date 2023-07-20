@@ -5,7 +5,7 @@
 @namespace      https://userstyles.world/user/sapondanaisriwan
 @homepageURL    https://github.com/sapondanaisriwan/youtube-anti-shorts
 @supportURL     https://github.com/sapondanaisriwan/youtube-anti-shorts/issues
-@version        1.0.0
+@version        1.0.1
 @license        MIT
 @preprocessor   stylus
 
@@ -14,10 +14,9 @@
 @var checkbox channelPage         "Channel Feed Shorts" 1
 @var checkbox watchPage           "Watch Feed Shorts" 1
 @var checkbox searchPage          "Search Feed Shorts" 1
-@var checkbox hashtagPage         "Hashtag Feed Shorts" 1
 @var checkbox subscriptionPage    "Subscription Feed Shorts" 1
-@var checkbox videosPerRow        "Search Feed Shorts" 1
-@var checkbox hideProfile         "Hide Profile" 1
+@var checkbox hashtagPage         "Hashtag Feed Shorts" 1
+
 ==/UserStyle== */
 @-moz-document domain("youtube.com") {
   /* Variables */
@@ -99,7 +98,5 @@
               }
           }
       }
-
-      if (hideProfile) {}
   }
 }
