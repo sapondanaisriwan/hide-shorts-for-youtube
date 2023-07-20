@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "Youtube Anti Shorts",
   "description": "Hide All YouTube Shorts",
-  "version": "1.0.0",
-  "permissions": ["tabs", "storage"],
+  "version": "1.0.1",
+  "permissions": ["storage"],
   "action": {
     "default_popup": "popup.html"
   },
@@ -18,8 +18,5 @@
       "matches": ["https://www.youtube.com/*"],
       "js": ["./variables.js", "./init-data.js", "./hide-shorts.js"]
     }
-  ],
-  "background": {
-    "service_worker": "background.js"
-  }
+  ]
 }

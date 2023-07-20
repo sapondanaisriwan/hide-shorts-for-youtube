@@ -1,5 +1,3 @@
-// Todo: Hide shorts on subscription page
-
 "use strict";
 let data;
 
@@ -58,61 +56,65 @@ const injectStyle = (id, css) => {
 function hideShortsCSS() {
   storage.get(console.log);
 
-  data.shortsSetting.homePage
-    ? injectStyle("homePage", styles.homePage)
-    : removeEle("homePage");
-  data.shortsSetting.channelPage
-    ? injectStyle("channelPage", styles.channelPage)
-    : removeEle("channelPage");
-  data.shortsSetting.watchPage
-    ? injectStyle("watchPage", styles.watchPage)
-    : removeEle("watchPage");
-  data.shortsSetting.searchPage
-    ? injectStyle("searchPage", styles.searchPage)
-    : removeEle("searchPage");
-  data.shortsSetting.hashtagPage
-    ? injectStyle("hashtagPage", styles.hashtagPage)
-    : removeEle("hashtagPage");
-  data.shortsSetting.hideTab
-    ? injectStyle("hideTab", styles.tabs)
-    : removeEle("hideTab");
+  data.shortsSetting?.homePage
+    ? injectStyle("hs-home-page", styles.homePage)
+    : removeEle("hs-home-page");
+  data.shortsSetting?.channelPage
+    ? injectStyle("hs-channel-page", styles.channelPage)
+    : removeEle("hs-channel-page");
+  data.shortsSetting?.watchPage
+    ? injectStyle("hs-watch-page", styles.watchPage)
+    : removeEle("hs-watch-page");
+  data.shortsSetting?.searchPage
+    ? injectStyle("hs-search-page", styles.searchPage)
+    : removeEle("hs-search-page");
+  data.shortsSetting?.subscriptionPage
+    ? injectStyle("hs-subscription-page", styles.subscriptionPage)
+    : removeEle("hs-subscription-page");
+  data.shortsSetting?.hashtagPage
+    ? injectStyle("hs-hashtag-page", styles.hashtagPage)
+    : removeEle("hs-hashtag-page");
+  data.shortsSetting?.hideTab
+    ? injectStyle("hs-tab", styles.tabs)
+    : removeEle("hs-tab");
 }
 
 function hideShortsJS() {
   // Home Page
-  if (data.shortsSetting.homePage) {
+  if (data.shortsSetting?.homePage) {
     hideShorts(hp.reel.element, hp.reel.parent);
   }
 
   // Channel Page
-  if (data.shortsSetting.channelPage) {
+  if (data.shortsSetting?.channelPage) {
     hideShorts(chp.feed.element);
     hideShorts(chp.reel.element, chp.reel.parent);
   }
 
   // Watch Page
-  if (data.shortsSetting.watchPage) {
+  if (data.shortsSetting?.watchPage) {
     hideShorts(wp.reel);
   }
 
   // Search Page
-  if (data.shortsSetting.searchPage) {
+  if (data.shortsSetting?.searchPage) {
     hideShorts(sp.reel);
     hideShorts(sp.videos.element, sp.videos.parent);
   }
 
   // Subscription Page
-  // if (data.shortsSetting.Subscription_Page.Hide_Shorts) {
-  //   hideShorts(subp.videos.element, subp.videos.parent);
-  //   hideShorts(subp.reel.element, hp.reel.parent);
-  // }
+  if (data.shortsSetting?.subscriptionPage) {
+    hideShorts(subp.videos.element, subp.videos.parent);
+    hideShorts(subp.reel.element, subp.reel.parent);
+    hideShorts(subp.reelList.element, subp.reelList.parent);
+  }
 
   // Hashtag Page
-  if (data.shortsSetting.hashtagPage) {
+  if (data.shortsSetting?.hashtagPage) {
     hideShorts(hashP.video.element, hashP.video.parent);
   }
 
-  if (data.shortsSetting.hideTab) {
+  if (data.shortsSetting?.hideTab) {
     // Tabs
     hideShortsText(tab.element, tab.parent);
     hideShorts(tabNav.expanded);
@@ -124,7 +126,7 @@ function hideShortsJS() {
 }
 
 // Update data when the ui changes
-storage.onChanged.addListener(async (changes, areaName) => {
+storage.onChanged.addListener(async () => {
   data = await storage.get(ytDataKey);
   hideShortsCSS();
 });
@@ -134,10 +136,12 @@ async function main() {
 
   // if the browser doesn't support has pseudo selectors execute the code below and return
   if (!supportHas) {
+    console.log("Not Support :has()");
     const observer = new MutationObserver(hideShortsJS);
     observer.observe(document.documentElement, config);
     return;
   }
+  console.log("Support :has()");
   hideShortsCSS();
 }
 main();

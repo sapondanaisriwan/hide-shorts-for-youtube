@@ -2,14 +2,12 @@ initData();
 
 // Function to add any missing data to the storage.
 function addMissingData(data) {
-  console.group("✅ Added");
   for (const key in settings) {
     if (!data[ytDataKey].hasOwnProperty(key)) {
       data[ytDataKey][key] = settings[key];
-      console.log(`${key}: ${settings[key]}`);
+      console.log(`Added ${key}: ${settings[key]}`);
     }
   }
-  console.groupEnd("Added");
   storage.set({ shortsSetting: data.shortsSetting });
 }
 

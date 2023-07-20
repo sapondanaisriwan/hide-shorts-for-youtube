@@ -4,7 +4,7 @@
   align-items: center;
   user-select: none;
   padding: 8px;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   border-radius: 4px;
   background-color: var(--bg-dark-gray-100);
 }

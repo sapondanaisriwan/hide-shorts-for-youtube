@@ -11,28 +11,12 @@
     <header>
       <a href="https://github.com/sapondanaisriwan/youtube-anti-shorts" target="_blank">
         <img src="./asset/svg/github.svg" alt="github">
-        <h2>Anti Shorts v1.0.0</h2>
+        <h2 data-version></h2>
       </a>
     </header>
 
-    <!-- Hide_Tab: true, // Hide Tabs that named "SHORT"
-    Home_Page: true,
-    Channel_Page: true,
-    Watch_Page: true,
-    Search_Page: true,
-    Hashtag_Page: true,
-    Subscription_Page: {
-      Videos_Per_Row: 6,
-      Hide_Shorts: true,
-      Hide_Channel_Profile: true,x
-    }, -->
-
     <div class="container">
       <div class="menu">
-        <div id="ets-container">
-          <button type="button" data-extension>
-        </div>
-        </button>
         <label id="toggle">
           <span class="label-text" tooltip="Hide Tabs that named SHORT"
             >Hide Tab</span
@@ -44,7 +28,7 @@
         </label>
         <label id="toggle">
           <span class="label-text" tooltip="Hide shorts on home page"
-            >Home Page</span
+            >Home Feed Shorts</span
           >
           <div class="toggle-container">
             <input type="checkbox" name="homePage" />
@@ -53,7 +37,7 @@
         </label>
         <label id="toggle">
           <span class="label-text" tooltip="Hide shorts on channel page"
-            >Channel Page</span
+            >Channel Feed Shorts</span
           >
           <div class="toggle-container">
             <input type="checkbox" name="channelPage" />
@@ -62,7 +46,7 @@
         </label>
         <label id="toggle">
           <span class="label-text" tooltip="Hide shorts on watch page"
-            >Watch Page</span
+            >Watch Feed Shorts</span
           >
           <div class="toggle-container">
             <input type="checkbox" name="watchPage" />
@@ -71,7 +55,7 @@
         </label>
         <label id="toggle">
           <span class="label-text" tooltip="Hide shorts on search page"
-            >Search Page</span
+            >Search Feed Shorts</span
           >
           <div class="toggle-container">
             <input type="checkbox" name="searchPage" />
@@ -80,10 +64,19 @@
         </label>
         <label id="toggle">
           <span class="label-text" tooltip="Hide shorts on hashtag page"
-            >Hashtag Page</span
+            >Hashtag Feed Shorts</span
           >
           <div class="toggle-container">
             <input type="checkbox" name="hashtagPage" />
+            <span class="toggle-switch"></span>
+          </div>
+        </label>
+        <label id="toggle">
+          <span class="label-text" tooltip="Hide shorts on subscription page"
+            >Subscription Feed Shorts</span
+          >
+          <div class="toggle-container">
+            <input type="checkbox" name="subscriptionPage" />
             <span class="toggle-switch"></span>
           </div>
         </label>

@@ -16,6 +16,7 @@ const settings = {
   watchPage: true,
   searchPage: true,
   hashtagPage: true,
+  subscriptionPage: true,
 };
 
 const supportHas = CSS.supports("selector(:has(*))");
@@ -53,10 +54,15 @@ const selectors = {
     reel: {
       parent: "ytd-rich-section-renderer",
       element:
-        "[page-subtype='subscriptions'] ytd-rich-shelf-renderer[is-shorts]",
+        "[page-subtype='subscriptions'] ytd-rich-shelf-renderer[is-shorts], ytd-reel-shelf-renderer",
+    },
+    reelList: {
+      parent: "ytd-item-section-renderer[page-subtype='subscriptions']",
+      element: "ytd-reel-shelf-renderer",
     },
     videos: {
-      parent: "ytd-grid-video-renderer, ytd-rich-item-renderer",
+      parent:
+        "ytd-grid-video-renderer, ytd-rich-item-renderer, ytd-item-section-renderer",
       element: "[page-subtype='subscriptions'] #thumbnail[href^='/shorts/']",
     },
   },
@@ -94,34 +100,48 @@ const styles = {
   }
   `,
   homePage: `
-  [page-subtype='home'] ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]) {
+  [page-subtype='home'] ytd-rich-section-renderer:has(a[href^="/shorts/"]) {
     display: none;
   }
   `,
   searchPage: `
-  ytd-search ytd-reel-shelf-renderer {
+  ytd-search ytd-reel-shelf-renderer:has(a[href^="/shorts/"]),
+  ytd-search ytd-video-renderer:has(a[href^="/shorts/"]) {
     display: none;
   }
-  ytd-search ytd-video-renderer[is-search]:has(#thumbnail[href^='/shorts/']) {
-    display: none;
-  }
+  
   `,
   channelPage: `
-  [page-subtype="channels"] ytd-item-section-renderer:has(ytd-reel-shelf-renderer) {
+  [page-subtype="channels"] ytd-item-section-renderer:has(a[href^="/shorts/"]),
+  [page-subtype="channels"] ytd-rich-grid-renderer:has(a[href^="/shorts/"]) {
     display: none;
-  }
-
-  [page-subtype='channels'] ytd-rich-grid-renderer[is-shorts-grid] {
-    display: none;
-  }
+  }  
   `,
   watchPage: `
   ytd-watch-flexy ytd-reel-shelf-renderer {
     display: none;
   }
   `,
-  hashtagePage: `
-  [page-subtype='hashtag-landing-page'] ytd-rich-item-renderer:has(#thumbnail[href^='/shorts/']) {
+  hashtagPage: `
+  [page-subtype="hashtag-landing-page"] ytd-rich-item-renderer:has(a[href^="/shorts/"]) {
+    display: none;
+  }
+  [page-subtype="hashtag-landing-page"] #contents {
+    width: 88.1%;
+  }
+  [page-subtype="hashtag-landing-page"] ytd-rich-grid-row,
+  [page-subtype="hashtag-landing-page"] ytd-rich-grid-row #contents {
+    display: contents;
+  }
+  [page-subtype="hashtag-landing-page"] ytd-rich-grid-renderer[is-shorts-grid] #contents.ytd-rich-grid-renderer {
+    display: none;
+  }  
+  `,
+  subscriptionPage: `
+  [page-subtype="subscriptions"] ytd-item-section-renderer:has(a[href^="/shorts/"]),
+  [page-subtype="subscriptions"] ytd-rich-section-renderer:has(a[href^="/shorts/"]),
+  [page-subtype="subscriptions"] ytd-grid-video-renderer:has(a[href^="/shorts/"]),
+  [page-subtype="subscriptions"] ytd-rich-item-renderer:has(a[href^="/shorts/"]) {
     display: none;
   }
   `,

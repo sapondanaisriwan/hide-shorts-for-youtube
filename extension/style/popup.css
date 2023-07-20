@@ -17,10 +17,11 @@ body {
   font-family: "Poppins", sans-serif;
   color: var(--text-white-100);
   background: var(--bg-dark-gray-200);
+  padding: 16px;
 }
 
 h2 {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   user-select: none;
   text-align: center;
@@ -29,14 +30,13 @@ h2 {
 #ets-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 #ets-container button {
   cursor: pointer;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   overflow: hidden;
   border: none;
@@ -59,7 +59,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 12px;
+  margin-bottom: 12px;
 }
 
 header a {
@@ -74,11 +74,6 @@ header a {
 
 header,
 .container {
-  padding-inline: 8px;
-  width: 250px;
+  width: 280px;
   margin-inline: auto;
-}
-
-.menu {
-  padding: 4px;
 }
