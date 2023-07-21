@@ -30,8 +30,8 @@ Hide all shorts videos on YouTube
 ## ⬇️ Download
 
 - [Extension](https://chrome.google.com/webstore/detail/youtube-anti-shorts/lfhnlieoomhlancdfhihpopgkiekbefd)
-
 - [Userscript](https://greasyfork.org/en/scripts/465519-youtube-anti-shorts)
+- [Userstyle](https://userstyles.world/style/11014/hide-youtube-shorts)
 
 
 ## 🧑‍💻 Contributing
