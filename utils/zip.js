@@ -4,13 +4,6 @@ const fsExists = require("fs.promises.exists");
 const AdmZip = require("adm-zip");
 const zip = new AdmZip();
 
-var fs = require("fs");
-var dir = "./tmp";
-
-if (!fs.existsSync(dir)) {
-  fs.mkdirSync(dir);
-}
-
 const run = async () => {
   const manifest = await readFile("extension/manifest-build.json", "utf-8");
   const { name, version } = JSON.parse(manifest);
