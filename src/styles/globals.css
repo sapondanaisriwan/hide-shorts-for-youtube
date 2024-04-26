@@ -1,9 +1,0 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer components {
-  .rt-ContainerInner .rt-SwitchRoot:where(.rt-variant-surface)::before {
-    background-image: linear-gradient(to right, #6040c9 40%, transparent 60%);
-  }
-}
