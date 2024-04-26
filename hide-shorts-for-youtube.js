@@ -1,15 +1,15 @@
 // ==UserScript==
-// @name        YouTube Anti-Shorts
+// @name        Hide Shorts for YouTube
 // @version     1.0.5
 // @author      sapondanaisriwan
-// @namespace   https://github.com/sapondanaisriwan/youtube-anti-shorts
+// @namespace   https://github.com/sapondanaisriwan/hide-shorts-for-youtube
 // @description Remove all shorts
 // @match       https://www.youtube.com/*
 // @grant       none
 // @license      MIT
-// @homepageURL https://github.com/sapondanaisriwan/youtube-anti-shorts
-// @updateURL   https://github.com/sapondanaisriwan/youtube-anti-shorts/raw/main/anti-shorts.user.js
-// @supportURL  https://github.com/sapondanaisriwan/youtube-anti-shorts/issues
+// @homepageURL https://github.com/sapondanaisriwan/hide-shorts-for-youtube
+// @updateURL   https://github.com/sapondanaisriwan/hide-shorts-for-youtube/raw/main/anti-shorts.user.js
+// @supportURL  https://github.com/sapondanaisriwan/hide-shorts-for-youtube/issues
 // @icon        https://i.imgur.com/I9uDrsq.png
 // ==/UserScript==
 
