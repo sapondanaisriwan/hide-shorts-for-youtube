@@ -36,7 +36,7 @@ A chrome extension for hiding all shorts on YouTube
 
 ## 🧑‍💻 Contributing
 
-Any contribution is greatly appreciated.
+Any contribution is greatly appreciated, please take a look [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ## 💰 Support me
 
