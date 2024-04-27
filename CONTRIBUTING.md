@@ -48,7 +48,7 @@ Alternatively, you can click the "Run" button at the bottom left corner of your 
 2. Toggle on the "Developer mode".
 3. Click on "Load unpacked" button.
 4. Select the folder
-   - `github-grid-view/dist` for development.
-   - `github-grid-view/build` for building.
+   - `hide-shorts-for-youtube/dist` for development.
+   - `hide-shorts-for-youtube/build` for building.
 
 Feel free to reach out if you have any questions or need further assistance. We appreciate your contributions! 🚀
