@@ -9,8 +9,8 @@ function Logo() {
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M22.8645 23.9307C22.6195 26.2125 21.3117 28.3433 19.165 29.5528C15.6222 31.549 11.1317 30.2874 9.14679 26.7383L9.00616 26.4868L6.19701 21.1128C6.06795 20.9252 5.94642 20.73 5.83306 20.5273L5.69501 20.2804L1.00973 11.2097L0.769749 10.7297C-0.967071 7.25608 0.32891 3.03071 3.71466 1.12824C7.27336 -0.871407 11.7804 0.445639 13.7024 4.04685L15.1169 6.69697C15.3068 4.35956 16.6216 2.16296 18.8076 0.934652C22.3663 -1.065 26.8734 0.252048 28.7954 3.85326L33.8284 13.2835C33.9164 13.4483 33.9975 13.6151 34.0718 13.7834L37.1282 19.4901C39.015 23.0128 37.7399 27.3975 34.2583 29.3592C30.7155 31.3553 26.2251 30.0938 24.2401 26.5446L24.0995 26.2932L22.8645 23.9307Z"
         fill="url(#pattern0_16_71)"
       />
@@ -39,9 +39,9 @@ function Logo() {
           width="9.78687"
           height="15.6965"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"
