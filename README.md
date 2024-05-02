@@ -8,7 +8,7 @@ A chrome extension for hiding all shorts on YouTube
 [![Forks][fork-badge]][members]
 [![MIT License][mit-badge]](./LICENSE)
 
-<img src="https://github.com/sapondanaisriwan/hide-shorts-for-youtube/assets/64634605/e39c5dac-feb1-40e5-8933-ce68501223a7" width="100%"/>
+<img src="https://github.com/sapondanaisriwan/hide-shorts-for-youtube/assets/64634605/6c236833-696e-4157-8c4a-36f6068a97c1" width="100%"/>
 
 </div>
 
